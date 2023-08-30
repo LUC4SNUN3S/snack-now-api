@@ -1,0 +1,31 @@
+version: '3.3'
+
+volumes:
+  db_data:
+
+networks:
+  snack-now-network: 
+
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  snack-now-api:
+    build: .
+    container_name: snack-now-api
+    user: node
+    ports:
+      - "3000:3000"  
+    volumes:
+      - ./:/home/node/app
+    networks:
+      - snack-now-network    
+    env_file:
+      - .env
