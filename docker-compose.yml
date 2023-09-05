@@ -8,12 +8,13 @@ networks:
 
 
 services:
-  db:
+  snack-now-db:
     image: postgres
+    container_name: snack-now-db
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: postgres
+      - .env
     ports:
       - "5432:5432"
 
